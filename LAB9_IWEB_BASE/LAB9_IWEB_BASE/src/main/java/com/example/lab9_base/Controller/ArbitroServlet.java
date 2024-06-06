@@ -1,5 +1,8 @@
 package com.example.lab9_base.Controller;
 
+import com.example.lab9_base.Bean.Arbitro;
+import com.example.lab9_base.Bean.Partido;
+import com.example.lab9_base.Dao.DaoArbitros;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -51,11 +54,12 @@ public class ArbitroServlet extends HttpServlet {
         opciones.add("nombre");
         opciones.add("pais");
 
+        DaoArbitros arbitroDao = new DaoArbitros();
+
         switch (action) {
             case "lista":
-                /*
-                Inserte su código aquí
-                 */
+                ArrayList<Arbitro> listaArbitro = arbitroDao.listarArbitros();
+                request.setAttribute("lista", listaArbitro);
                 view = request.getRequestDispatcher("/arbitros/list.jsp");
                 view.forward(request, response);
                 break;
